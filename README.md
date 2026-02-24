@@ -1,2 +1,5 @@
-# Competitor-analysis-tool
-This tool is for analysis for top 5 competitors from public data about relevant industry
+# Competitor Analysis AI Agent
+
+This project is built step by step using spec-driven development.
+
+No code is written unless the spec is complete.
