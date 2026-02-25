@@ -93,9 +93,32 @@ const sampleCompetitors = [
   },
 ];
 
+const sampleFeatures = [
+  { id: 'f1', name: 'Real-time Analytics', category: 'Core' },
+  { id: 'f2', name: 'API Access', category: 'Core' },
+  { id: 'f3', name: 'Team Collaboration', category: 'Collaboration' },
+  { id: 'f4', name: 'Custom Reports', category: 'Reporting' },
+  { id: 'f5', name: 'Mobile App', category: 'Platform' },
+  { id: 'f6', name: 'SSO / SAML', category: 'Security' },
+  { id: 'f7', name: 'Webhooks', category: 'Integration' },
+  { id: 'f8', name: 'White Labeling', category: 'Customization' },
+  { id: 'f9', name: 'Data Export (CSV)', category: 'Reporting' },
+  { id: 'f10', name: 'Role-Based Permissions', category: 'Security' },
+  { id: 'f11', name: 'Slack Integration', category: 'Integration' },
+  { id: 'f12', name: 'AI-Powered Insights', category: 'Core' },
+];
+
+// featureScores: { competitorId: { featureId: 'yes' | 'no' | 'partial' } }
+const sampleFeatureScores = {
+  '1': { f1: 'yes', f2: 'yes', f3: 'yes', f4: 'yes', f5: 'no', f6: 'yes', f7: 'yes', f8: 'no', f9: 'yes', f10: 'yes', f11: 'partial', f12: 'no' },
+  '2': { f1: 'yes', f2: 'yes', f3: 'no', f4: 'yes', f5: 'yes', f6: 'no', f7: 'yes', f8: 'yes', f9: 'yes', f10: 'no', f11: 'yes', f12: 'partial' },
+  '3': { f1: 'yes', f2: 'no', f3: 'yes', f4: 'no', f5: 'yes', f6: 'no', f7: 'no', f8: 'no', f9: 'yes', f10: 'no', f11: 'no', f12: 'no' },
+  '4': { f1: 'partial', f2: 'yes', f3: 'yes', f4: 'yes', f5: 'no', f6: 'yes', f7: 'yes', f8: 'yes', f9: 'no', f10: 'yes', f11: 'yes', f12: 'yes' },
+  '5': { f1: 'yes', f2: 'yes', f3: 'yes', f4: 'no', f5: 'yes', f6: 'no', f7: 'yes', f8: 'no', f9: 'yes', f10: 'partial', f11: 'no', f12: 'partial' },
+};
+
 const STORAGE_KEY = 'competitoriq-data';
 
-// Load from localStorage
 function loadData() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -106,11 +129,12 @@ function loadData() {
   return null;
 }
 
-// Save to localStorage
 function saveData(state) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
       competitors: state.competitors,
+      features: state.features,
+      featureScores: state.featureScores,
     }));
   } catch (e) {
     console.error('Failed to save data:', e);
@@ -121,6 +145,7 @@ const useStore = create((set, get) => {
   const saved = loadData();
 
   return {
+    // === COMPETITORS ===
     competitors: saved?.competitors || sampleCompetitors,
 
     addCompetitor: (competitor) => {
@@ -138,7 +163,18 @@ const useStore = create((set, get) => {
         createdAt: new Date().toISOString(),
       };
       set((state) => {
-        const updated = { competitors: [...state.competitors, newCompetitor] };
+        // Initialize empty feature scores for new competitor
+        const newFeatureScores = { ...state.featureScores };
+        newFeatureScores[newCompetitor.id] = {};
+        state.features.forEach((f) => {
+          newFeatureScores[newCompetitor.id][f.id] = 'no';
+        });
+
+        const updated = {
+          ...state,
+          competitors: [...state.competitors, newCompetitor],
+          featureScores: newFeatureScores,
+        };
         saveData(updated);
         return updated;
       });
@@ -147,6 +183,7 @@ const useStore = create((set, get) => {
     updateCompetitor: (id, updates) => {
       set((state) => {
         const updated = {
+          ...state,
           competitors: state.competitors.map((c) =>
             c.id === id ? { ...c, ...updates } : c
           ),
@@ -158,8 +195,13 @@ const useStore = create((set, get) => {
 
     deleteCompetitor: (id) => {
       set((state) => {
+        const newFeatureScores = { ...state.featureScores };
+        delete newFeatureScores[id];
+
         const updated = {
+          ...state,
           competitors: state.competitors.filter((c) => c.id !== id),
+          featureScores: newFeatureScores,
         };
         saveData(updated);
         return updated;
@@ -170,9 +212,86 @@ const useStore = create((set, get) => {
       return get().competitors.find((c) => c.id === id);
     },
 
+    // === FEATURES ===
+    features: saved?.features || sampleFeatures,
+    featureScores: saved?.featureScores || sampleFeatureScores,
+
+    addFeature: (feature) => {
+      const newFeature = {
+        ...feature,
+        id: 'f' + Date.now(),
+      };
+      set((state) => {
+        // Add 'no' score for every competitor
+        const newScores = { ...state.featureScores };
+        state.competitors.forEach((c) => {
+          if (!newScores[c.id]) newScores[c.id] = {};
+          newScores[c.id][newFeature.id] = 'no';
+        });
+
+        const updated = {
+          ...state,
+          features: [...state.features, newFeature],
+          featureScores: newScores,
+        };
+        saveData(updated);
+        return updated;
+      });
+    },
+
+    updateFeature: (id, updates) => {
+      set((state) => {
+        const updated = {
+          ...state,
+          features: state.features.map((f) =>
+            f.id === id ? { ...f, ...updates } : f
+          ),
+        };
+        saveData(updated);
+        return updated;
+      });
+    },
+
+    deleteFeature: (id) => {
+      set((state) => {
+        const newScores = { ...state.featureScores };
+        Object.keys(newScores).forEach((compId) => {
+          const copy = { ...newScores[compId] };
+          delete copy[id];
+          newScores[compId] = copy;
+        });
+
+        const updated = {
+          ...state,
+          features: state.features.filter((f) => f.id !== id),
+          featureScores: newScores,
+        };
+        saveData(updated);
+        return updated;
+      });
+    },
+
+    setFeatureScore: (competitorId, featureId, value) => {
+      set((state) => {
+        const newScores = { ...state.featureScores };
+        if (!newScores[competitorId]) newScores[competitorId] = {};
+        newScores[competitorId] = { ...newScores[competitorId], [featureId]: value };
+
+        const updated = { ...state, featureScores: newScores };
+        saveData(updated);
+        return updated;
+      });
+    },
+
+    // === RESET ===
     resetToSample: () => {
-      set({ competitors: sampleCompetitors });
-      saveData({ competitors: sampleCompetitors });
+      const data = {
+        competitors: sampleCompetitors,
+        features: sampleFeatures,
+        featureScores: sampleFeatureScores,
+      };
+      set(data);
+      saveData(data);
     },
   };
 });

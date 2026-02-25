@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import Dashboard from './pages/Dashboard';
 import CompetitorProfile from './pages/CompetitorProfile';
+import Comparison from './pages/Comparison';
 import ComingSoon from './pages/ComingSoon';
 
 export default function App() {
@@ -11,15 +12,7 @@ export default function App() {
         <Route element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="/competitor/:id" element={<CompetitorProfile />} />
-          <Route
-            path="/compare"
-            element={
-              <ComingSoon
-                title="Feature Comparison"
-                description="Side-by-side feature comparison matrix. This module will be built in the next phase."
-              />
-            }
-          />
+          <Route path="/compare" element={<Comparison />} />
           <Route
             path="/swot"
             element={
