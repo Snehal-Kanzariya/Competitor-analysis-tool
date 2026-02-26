@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { X } from 'lucide-react';
-import useStore from '../../store/useStore';
+import useStore from '../../store/useStore.js';
 
 const categories = [
   'Core',
