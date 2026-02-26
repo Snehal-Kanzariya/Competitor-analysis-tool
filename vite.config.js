@@ -4,4 +4,16 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  server: {
+    proxy: {
+      "/api/claude": {
+        target: "https://api.anthropic.com",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/claude/, ""),
+        headers: {
+          "anthropic-dangerous-direct-browser-access": "true",
+        },
+      },
+    },
+  },
 });
