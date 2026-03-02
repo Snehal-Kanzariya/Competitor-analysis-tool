@@ -8,6 +8,7 @@ import {
   Settings,
   Sparkles,
   Crown,
+  FileDown,
 } from 'lucide-react';
 
 const navItems = [
@@ -78,6 +79,25 @@ export default function Sidebar() {
             {item.label}
           </NavLink>
         ))}
+
+        {/* Reports Section */}
+        <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider px-3 mb-2 mt-4">
+          Reports
+        </div>
+
+        <NavLink
+          to="/export"
+          className={({ isActive }) =>
+            `flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] mb-0.5 transition-all ${
+              isActive
+                ? 'bg-blue-500/15 text-blue-300 font-semibold'
+                : 'text-slate-400 hover:bg-slate-800 hover:text-slate-300'
+            }`
+          }
+        >
+          <FileDown size={16} />
+          Export & Reports
+        </NavLink>
       </nav>
 
       {/* Footer */}

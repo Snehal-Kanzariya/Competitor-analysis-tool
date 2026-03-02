@@ -18,6 +18,6 @@ If you are developing a production application, we recommend using TypeScript wi
 Design System & Wireframes  
 https://claude.ai/public/artifacts/36e7a1d2-e321-4d62-86a2-ba9babacde20
 
-Google API Key - AIzaSyAXeNywmRj_Gv-X03Oin7t6bbQYVin7W88
+Google API Key - AIzaSyADtXqUqRMd-9gqcpevxFBh-eQj4Vn6oTU
 
 Search engine ID - 00b6982b9b0b24b35

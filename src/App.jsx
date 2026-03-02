@@ -8,6 +8,7 @@ import Monopoly from './pages/Monopoly';
 import Positioning from './pages/Positioning';
 import Scoring from './pages/Scoring';
 import Research from './pages/Research';
+import Export from './pages/Export';
 import Settings from './pages/Settings';
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="/monopoly" element={<Monopoly />} />
           <Route path="/positioning" element={<Positioning />} />
           <Route path="/scoring" element={<Scoring />} />
+          <Route path="/export" element={<Export />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
       </Routes>
