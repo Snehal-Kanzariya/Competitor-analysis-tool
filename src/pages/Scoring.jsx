@@ -112,14 +112,14 @@ export default function Scoring() {
   return (
     <div>
       {/* Header */}
-      <div className="flex items-start justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-6">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">Weighted Scoring</h1>
+          <h1 className="text-xl md:text-2xl font-bold tracking-tight text-slate-900">Weighted Scoring</h1>
           <p className="text-sm text-slate-400 mt-1">Score competitors 1-10 per criterion · Click cells to edit</p>
         </div>
         <button
           onClick={() => setShowAddCriteria(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg text-sm font-semibold hover:bg-blue-600 transition-colors shadow-sm shadow-blue-500/20"
+          className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg text-sm font-semibold hover:bg-blue-600 transition-colors shadow-sm shadow-blue-500/20 self-start sm:self-auto shrink-0"
         >
           <Plus size={16} /> Add Criterion
         </button>
@@ -164,11 +164,11 @@ export default function Scoring() {
 
       {/* Scoring Table */}
       <div className="bg-white rounded-xl border border-slate-200 overflow-hidden mb-5">
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto" style={{ WebkitOverflowScrolling: 'touch' }}>
           <table className="w-full border-collapse text-sm">
             <thead>
               <tr className="bg-slate-900">
-                <th className="sticky left-0 z-10 bg-slate-900 px-4 py-3 text-left text-xs font-semibold text-white w-44 min-w-44">
+                <th className="sticky left-0 z-10 bg-slate-900 px-4 py-3 text-left text-xs font-semibold text-white w-36 min-w-36">
                   Competitor
                 </th>
                 {criteria.map((c, i) => (
@@ -252,19 +252,19 @@ export default function Scoring() {
       </div>
 
       {/* Ranking Cards */}
-      <div className="grid gap-3" style={{ gridTemplateColumns: `repeat(${Math.min(rankings.length, 5)}, 1fr)` }}>
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
         {rankings.map((comp, i) => (
           <div key={comp.id} className={`rounded-xl p-4 text-center transition-all ${
             i === 0 ? 'bg-gradient-to-b from-amber-50 to-white border-2 border-amber-200 shadow-sm' :
             'bg-white border border-slate-200'
           }`}>
             {i === 0 && <Trophy size={20} className="text-amber-500 mx-auto mb-2" />}
-            <div className={`text-2xl font-bold mb-1 ${i === 0 ? 'text-amber-600' : 'text-slate-400'}`}>#{i + 1}</div>
+            <div className={`text-xl md:text-2xl font-bold mb-1 ${i === 0 ? 'text-amber-600' : 'text-slate-400'}`}>#{i + 1}</div>
             <div className="flex items-center justify-center gap-2 mb-2">
-              <div className="w-6 h-6 rounded-md flex items-center justify-center text-white text-[10px] font-bold" style={{ backgroundColor: comp.color }}>
+              <div className="w-6 h-6 rounded-md flex items-center justify-center text-white text-[10px] font-bold shrink-0" style={{ backgroundColor: comp.color }}>
                 {comp.name.charAt(0)}
               </div>
-              <span className="text-sm font-semibold text-slate-700">{comp.name}</span>
+              <span className="text-sm font-semibold text-slate-700 truncate">{comp.name}</span>
             </div>
             <div className="text-lg font-bold text-blue-600">{comp.total}</div>
             <div className="text-[10px] text-slate-400">weighted score</div>
@@ -281,7 +281,7 @@ export default function Scoring() {
       </div>
 
       {/* Score Color Legend */}
-      <div className="mt-5 flex items-center gap-5 text-xs text-slate-400">
+      <div className="mt-5 flex flex-wrap items-center gap-3 md:gap-5 text-xs text-slate-400">
         <span className="font-medium text-slate-500">Score colors:</span>
         <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded bg-emerald-100 border border-emerald-200" /><span>8-10 Strong</span></div>
         <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded bg-white border border-slate-200" /><span>6-7 Average</span></div>

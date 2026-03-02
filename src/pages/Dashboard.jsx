@@ -34,16 +34,16 @@ export default function Dashboard() {
   return (
     <div>
       {/* Page Header */}
-      <div className="flex items-start justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-6">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">Dashboard</h1>
+          <h1 className="text-xl md:text-2xl font-bold tracking-tight text-slate-900">Dashboard</h1>
           <p className="text-sm text-slate-400 mt-1">
             Your competitive landscape at a glance
           </p>
         </div>
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-2 px-4 py-2.5 bg-blue-500 text-white rounded-lg text-sm font-semibold hover:bg-blue-600 transition-colors shadow-sm shadow-blue-500/20"
+          className="flex items-center gap-2 px-4 py-2.5 bg-blue-500 text-white rounded-lg text-sm font-semibold hover:bg-blue-600 transition-colors shadow-sm shadow-blue-500/20 self-start sm:self-auto shrink-0"
         >
           <Plus size={16} />
           Add Competitor
@@ -54,9 +54,9 @@ export default function Dashboard() {
       <StatsBar />
 
       {/* Toolbar */}
-      <div className="flex items-center gap-3 mb-5">
+      <div className="flex flex-wrap items-center gap-2 mb-5">
         {/* Search */}
-        <div className="relative flex-1 max-w-xs">
+        <div className="relative flex-1 min-w-0">
           <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300" />
           <input
             type="text"
@@ -69,8 +69,8 @@ export default function Dashboard() {
 
         {/* Filter */}
         <div className="flex items-center gap-1.5">
-          <SlidersHorizontal size={14} className="text-slate-400" />
-          <div className="flex gap-1">
+          <SlidersHorizontal size={14} className="text-slate-400 shrink-0" />
+          <div className="flex gap-1 flex-wrap">
             {statuses.map((s) => (
               <button
                 key={s}
@@ -89,7 +89,7 @@ export default function Dashboard() {
 
         {/* Sort */}
         <div className="flex items-center gap-1.5 ml-auto">
-          <ArrowUpDown size={14} className="text-slate-400" />
+          <ArrowUpDown size={14} className="text-slate-400 shrink-0" />
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
@@ -104,7 +104,7 @@ export default function Dashboard() {
 
       {/* Competitor Grid */}
       {filtered.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filtered.map((c) => (
             <CompetitorCard key={c.id} competitor={c} />
           ))}

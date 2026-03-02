@@ -108,14 +108,14 @@ export default function Comparison() {
   return (
     <div>
       {/* Header */}
-      <div className="flex items-start justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-6">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">Feature Comparison</h1>
+          <h1 className="text-xl md:text-2xl font-bold tracking-tight text-slate-900">Feature Comparison</h1>
           <p className="text-sm text-slate-400 mt-1">
             Side-by-side feature analysis · Click cells to toggle — {features.length} features across {competitors.length} competitors
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           <button
             onClick={exportCSV}
             className="flex items-center gap-2 px-3 py-2 border border-slate-200 rounded-lg text-sm font-medium text-slate-500 hover:bg-slate-50 transition-colors"
@@ -134,43 +134,45 @@ export default function Comparison() {
       </div>
 
       {/* Coverage Summary */}
-      <div className="grid gap-3 mb-5" style={{ gridTemplateColumns: `repeat(${competitors.length}, 1fr)` }}>
-        {competitors.map((c) => (
-          <div key={c.id} className="bg-white rounded-xl border border-slate-200 p-3.5">
-            <div className="flex items-center gap-2 mb-2">
-              <div
-                className="w-6 h-6 rounded-md flex items-center justify-center text-white text-[10px] font-bold shrink-0"
-                style={{ backgroundColor: c.color }}
-              >
-                {c.name.charAt(0)}
+      <div className="overflow-x-auto mb-5 -webkit-overflow-scrolling-touch">
+        <div className="grid gap-3" style={{ gridTemplateColumns: `repeat(${Math.max(competitors.length, 1)}, minmax(140px, 1fr))`, minWidth: competitors.length > 3 ? `${competitors.length * 150}px` : 'auto' }}>
+          {competitors.map((c) => (
+            <div key={c.id} className="bg-white rounded-xl border border-slate-200 p-3.5">
+              <div className="flex items-center gap-2 mb-2">
+                <div
+                  className="w-6 h-6 rounded-md flex items-center justify-center text-white text-[10px] font-bold shrink-0"
+                  style={{ backgroundColor: c.color }}
+                >
+                  {c.name.charAt(0)}
+                </div>
+                <span className="text-xs font-semibold text-slate-700 truncate">{c.name}</span>
               </div>
-              <span className="text-xs font-semibold text-slate-700 truncate">{c.name}</span>
+              <div className="flex items-baseline gap-1 mb-1.5">
+                <span className="text-lg font-bold text-slate-900">{coverage[c.id]?.percent || 0}%</span>
+                <span className="text-[10px] text-slate-400">coverage</span>
+              </div>
+              <div className="h-1.5 rounded-full bg-slate-100">
+                <div
+                  className="h-full rounded-full transition-all duration-300"
+                  style={{
+                    width: `${coverage[c.id]?.percent || 0}%`,
+                    background: `linear-gradient(90deg, ${c.color}, ${c.color}cc)`,
+                  }}
+                />
+              </div>
+              <div className="flex gap-3 mt-2 text-[10px] text-slate-400">
+                <span className="text-emerald-500 font-medium">{coverage[c.id]?.has} has</span>
+                <span className="text-amber-500 font-medium">{coverage[c.id]?.partial} partial</span>
+                <span className="text-red-400 font-medium">{coverage[c.id]?.missing} missing</span>
+              </div>
             </div>
-            <div className="flex items-baseline gap-1 mb-1.5">
-              <span className="text-lg font-bold text-slate-900">{coverage[c.id]?.percent || 0}%</span>
-              <span className="text-[10px] text-slate-400">coverage</span>
-            </div>
-            <div className="h-1.5 rounded-full bg-slate-100">
-              <div
-                className="h-full rounded-full transition-all duration-300"
-                style={{
-                  width: `${coverage[c.id]?.percent || 0}%`,
-                  background: `linear-gradient(90deg, ${c.color}, ${c.color}cc)`,
-                }}
-              />
-            </div>
-            <div className="flex gap-3 mt-2 text-[10px] text-slate-400">
-              <span className="text-emerald-500 font-medium">{coverage[c.id]?.has} has</span>
-              <span className="text-amber-500 font-medium">{coverage[c.id]?.partial} partial</span>
-              <span className="text-red-400 font-medium">{coverage[c.id]?.missing} missing</span>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       {/* Category Filter */}
       <div className="flex items-center gap-2 mb-4">
-        <Filter size={14} className="text-slate-400" />
+        <Filter size={14} className="text-slate-400 shrink-0" />
         <div className="flex gap-1 flex-wrap">
           {categories.map((cat) => (
             <button
@@ -190,11 +192,11 @@ export default function Comparison() {
 
       {/* Matrix Table */}
       <div className="bg-white rounded-xl border border-slate-200 overflow-hidden mb-5">
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto" style={{ WebkitOverflowScrolling: 'touch' }}>
           <table className="w-full border-collapse text-sm">
             <thead>
               <tr className="bg-slate-900">
-                <th className="sticky left-0 z-10 bg-slate-900 px-4 py-3 text-left text-xs font-semibold text-white w-56 min-w-56">
+                <th className="sticky left-0 z-10 bg-slate-900 px-4 py-3 text-left text-xs font-semibold text-white w-40 min-w-40">
                   Feature
                 </th>
                 {competitors.map((c) => (
@@ -211,7 +213,7 @@ export default function Comparison() {
                   </th>
                 ))}
                 <th className="px-3 py-3 text-center text-xs font-semibold text-slate-400 w-12">
-                  
+
                 </th>
               </tr>
             </thead>
@@ -264,7 +266,7 @@ export default function Comparison() {
       )}
 
       {/* Legend */}
-      <div className="flex items-center gap-6 text-xs text-slate-400">
+      <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400">
         <span className="font-medium text-slate-500">Legend:</span>
         {Object.entries(scoreIcons).map(([key, val]) => (
           <div key={key} className="flex items-center gap-1.5">
@@ -274,7 +276,7 @@ export default function Comparison() {
             <span>{val.tooltip}</span>
           </div>
         ))}
-        <span className="ml-2 text-slate-300">· Click any cell to cycle through values</span>
+        <span className="text-slate-300 hidden sm:inline">· Click any cell to cycle through values</span>
       </div>
 
       <AddFeatureModal isOpen={showModal} onClose={() => setShowModal(false)} />

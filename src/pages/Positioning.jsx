@@ -82,12 +82,12 @@ export default function Positioning() {
 
   return (
     <div onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} onMouseLeave={handleMouseUp}>
-      <div className="flex items-start justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-6">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">Market Positioning</h1>
+          <h1 className="text-xl md:text-2xl font-bold tracking-tight text-slate-900">Market Positioning</h1>
           <p className="text-sm text-slate-400 mt-1">Drag competitors to position them · {xAxis} vs {yAxis}</p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           <button onClick={exportMap} className="flex items-center gap-1.5 px-3 py-2 border border-slate-200 rounded-lg text-xs font-medium text-slate-500 hover:bg-slate-50 transition-colors">
             <Download size={13} /> Export
           </button>
@@ -107,7 +107,7 @@ export default function Positioning() {
               </button>
             ))}
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-semibold text-slate-500 mb-1.5">X-Axis (Horizontal)</label>
               <input type="text" value={xAxis} onChange={(e) => setXAxis(e.target.value)} className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400" />
@@ -120,14 +120,19 @@ export default function Positioning() {
         </div>
       )}
 
-      <div className="bg-white rounded-xl border border-slate-200 p-6">
+      <div className="bg-white rounded-xl border border-slate-200 p-4 md:p-6">
         <div className="flex justify-between mb-2">
           <span className="text-[11px] font-semibold text-slate-300">Low {xAxis}</span>
-          <span className="text-xs font-bold text-slate-500">{xAxis} → {yAxis}</span>
+          <span className="text-xs font-bold text-slate-500 hidden sm:block">{xAxis} → {yAxis}</span>
           <span className="text-[11px] font-semibold text-slate-300">High {xAxis}</span>
         </div>
 
-        <div ref={mapRef} className="relative bg-slate-50 rounded-xl border border-slate-200 select-none" style={{ paddingBottom: '65%', cursor: dragging ? 'grabbing' : 'default' }}>
+        {/* Map container — responsive aspect ratio */}
+        <div
+          ref={mapRef}
+          className="relative bg-slate-50 rounded-xl border border-slate-200 select-none"
+          style={{ paddingBottom: 'min(65%, 420px)', cursor: dragging ? 'grabbing' : 'default' }}
+        >
           <div className="absolute left-1/2 top-0 bottom-0 w-px bg-slate-200" />
           <div className="absolute top-1/2 left-0 right-0 h-px bg-slate-200" />
           <div className="absolute left-1/4 top-0 bottom-0 w-px bg-slate-100" />
@@ -142,7 +147,7 @@ export default function Positioning() {
             { label: labels[3], x: '75%', y: '75%' },
           ].map((q) => (
             <div key={q.label} className="absolute transform -translate-x-1/2 -translate-y-1/2 pointer-events-none" style={{ left: q.x, top: q.y }}>
-              <span className="text-[11px] font-bold text-slate-200 uppercase tracking-wider">{q.label}</span>
+              <span className="text-[9px] sm:text-[11px] font-bold text-slate-200 uppercase tracking-wider">{q.label}</span>
             </div>
           ))}
 
@@ -187,7 +192,7 @@ export default function Positioning() {
       <div className="mt-4 flex items-center gap-4 flex-wrap">
         {competitors.map((c) => (
           <div key={c.id} className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded-full" style={{ backgroundColor: c.color }} />
+            <div className="w-4 h-4 rounded-full shrink-0" style={{ backgroundColor: c.color }} />
             <span className="text-xs text-slate-500 font-medium">{c.name}</span>
           </div>
         ))}

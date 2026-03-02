@@ -9,6 +9,7 @@ import {
   Sparkles,
   Crown,
   FileDown,
+  X,
 } from 'lucide-react';
 
 const navItems = [
@@ -21,19 +22,33 @@ const navItems = [
   { to: '/scoring', icon: Star, label: 'Scoring' },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen, onClose }) {
   return (
-    <aside className="w-56 bg-slate-900 text-white flex flex-col border-r border-slate-800 shrink-0">
+    <aside
+      className={`
+        w-56 bg-slate-900 text-white flex flex-col border-r border-slate-800 shrink-0
+        fixed inset-y-0 left-0 z-30 transition-transform duration-200 ease-in-out
+        md:relative md:translate-x-0
+        ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+      `}
+    >
       {/* Logo */}
       <div className="px-5 py-5 border-b border-slate-800">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-violet-500 flex items-center justify-center text-sm font-extrabold">
             C
           </div>
-          <div>
+          <div className="flex-1">
             <div className="font-bold text-sm tracking-tight">CompetitorIQ</div>
             <div className="text-[11px] text-slate-500 mt-0.5">Analysis Platform</div>
           </div>
+          {/* Close button — mobile only */}
+          <button
+            onClick={onClose}
+            className="md:hidden p-1 rounded-lg hover:bg-slate-800 transition-colors"
+          >
+            <X size={18} className="text-slate-400" />
+          </button>
         </div>
       </div>
 
@@ -46,6 +61,7 @@ export default function Sidebar() {
         {/* AI Research button — special styling */}
         <NavLink
           to="/research"
+          onClick={onClose}
           className={({ isActive }) =>
             `flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] mb-3 transition-all ${
               isActive
@@ -67,6 +83,7 @@ export default function Sidebar() {
             key={item.to}
             to={item.to}
             end={item.to === '/'}
+            onClick={onClose}
             className={({ isActive }) =>
               `flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] mb-0.5 transition-all ${
                 isActive
@@ -87,6 +104,7 @@ export default function Sidebar() {
 
         <NavLink
           to="/export"
+          onClick={onClose}
           className={({ isActive }) =>
             `flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] mb-0.5 transition-all ${
               isActive
@@ -104,6 +122,7 @@ export default function Sidebar() {
       <div className="px-4 py-3 border-t border-slate-800">
         <NavLink
           to="/settings"
+          onClick={onClose}
           className={({ isActive }) =>
             `flex items-center gap-2 transition-colors ${
               isActive ? 'text-blue-300' : 'text-slate-500 hover:text-slate-300'

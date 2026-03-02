@@ -26,44 +26,44 @@ export default function CompetitorProfile() {
       </Link>
 
       {/* Profile Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div className="flex items-center gap-4">
           <div
-            className="w-14 h-14 rounded-2xl flex items-center justify-center text-white font-bold text-2xl"
+            className="w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center text-white font-bold text-xl md:text-2xl shrink-0"
             style={{ backgroundColor: c.color }}
           >
             {c.name.charAt(0)}
           </div>
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight text-slate-900">{c.name}</h1>
-            <div className="flex items-center gap-3 mt-1">
-              <span className="text-sm text-slate-400 flex items-center gap-1">
+          <div className="min-w-0">
+            <h1 className="text-xl md:text-2xl font-bold tracking-tight text-slate-900">{c.name}</h1>
+            <div className="flex flex-wrap items-center gap-2 mt-1">
+              <span className="text-sm text-slate-400 flex items-center gap-1 truncate">
                 {c.website} <ExternalLink size={11} />
               </span>
-              <span className="text-xs text-slate-300">·</span>
+              <span className="text-xs text-slate-300 hidden sm:inline">·</span>
               <span className="text-sm text-slate-400">{c.industry}</span>
-              <span className="text-xs text-slate-300">·</span>
+              <span className="text-xs text-slate-300 hidden sm:inline">·</span>
               <span className="text-sm text-slate-400">Founded {c.founded}</span>
             </div>
           </div>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+        <button className="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors self-start sm:self-auto shrink-0">
           <Edit3 size={14} />
           Edit Profile
         </button>
       </div>
 
       {/* Score Overview */}
-      <div className="bg-white rounded-xl border border-slate-200 p-6 mb-6">
-        <div className="flex items-center gap-8">
-          <div>
+      <div className="bg-white rounded-xl border border-slate-200 p-5 md:p-6 mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 md:gap-8">
+          <div className="shrink-0">
             <div className="text-xs font-medium text-slate-400 mb-1">Overall Score</div>
             <div className="flex items-baseline gap-1">
               <span className="text-4xl font-bold text-slate-900">{c.score}</span>
               <span className="text-lg text-slate-300">/100</span>
             </div>
           </div>
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <div className="h-3 rounded-full bg-slate-100">
               <div
                 className="h-full rounded-full transition-all"
@@ -71,14 +71,14 @@ export default function CompetitorProfile() {
               />
             </div>
           </div>
-          <div className={`text-lg font-bold ${c.trend.startsWith('+') ? 'text-emerald-500' : 'text-red-500'}`}>
+          <div className={`text-lg font-bold shrink-0 ${c.trend.startsWith('+') ? 'text-emerald-500' : 'text-red-500'}`}>
             {c.trend.startsWith('+') ? '↑' : '↓'} {c.trend}
           </div>
         </div>
       </div>
 
       {/* Info Grid */}
-      <div className="grid grid-cols-2 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
         <InfoSection title="Company Overview" items={[
           { label: 'Headquarters', value: c.hq || 'Not set' },
           { label: 'Employees', value: c.employees || 'Not set' },
@@ -89,7 +89,7 @@ export default function CompetitorProfile() {
       </div>
 
       {/* Strengths & Weaknesses */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="bg-white rounded-xl border border-slate-200 p-5">
           <h3 className="text-sm font-semibold text-emerald-600 mb-3 flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-emerald-500" />

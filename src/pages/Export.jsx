@@ -321,9 +321,9 @@ ${selectedSections.includes('monopoly') ? `
         <ArrowLeft size={14} /> Back to Dashboard
       </Link>
 
-      <div className="flex items-start justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-6">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">Export & Reports</h1>
+          <h1 className="text-xl md:text-2xl font-bold tracking-tight text-slate-900">Export & Reports</h1>
           <p className="text-sm text-slate-400 mt-1">
             Download your competitive analysis in multiple formats
             {currentResearchQuery && <span> · <strong>{currentResearchQuery}</strong></span>}
@@ -332,7 +332,7 @@ ${selectedSections.includes('monopoly') ? `
       </div>
 
       {/* Select Sections */}
-      <div className="bg-white rounded-xl border border-slate-200 p-5 mb-5">
+      <div className="bg-white rounded-xl border border-slate-200 p-4 md:p-5 mb-5">
         <div className="flex items-center justify-between mb-4">
           <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Include in export</span>
           <div className="flex gap-2">
@@ -342,7 +342,7 @@ ${selectedSections.includes('monopoly') ? `
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {exportSections.map((section) => {
             const isSelected = selectedSections.includes(section.id);
             return (
@@ -355,10 +355,10 @@ ${selectedSections.includes('monopoly') ? `
                     : 'bg-white border-slate-200 text-slate-400 hover:border-slate-300'
                 }`}
               >
-                <div className={`p-1.5 rounded-lg ${isSelected ? 'bg-blue-100' : 'bg-slate-100'}`}>
+                <div className={`p-1.5 rounded-lg shrink-0 ${isSelected ? 'bg-blue-100' : 'bg-slate-100'}`}>
                   <section.icon size={15} className={isSelected ? 'text-blue-500' : 'text-slate-400'} />
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <div className={`text-sm font-medium ${isSelected ? 'text-blue-700' : 'text-slate-600'}`}>
                     {section.label}
                   </div>
@@ -372,9 +372,9 @@ ${selectedSections.includes('monopoly') ? `
       </div>
 
       {/* Export Buttons */}
-      <div className="bg-white rounded-xl border border-slate-200 p-5 mb-5">
+      <div className="bg-white rounded-xl border border-slate-200 p-4 md:p-5 mb-5">
         <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Export format</div>
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <button
             onClick={exportPDF}
             disabled={exporting || selectedSections.length === 0}
@@ -431,7 +431,7 @@ ${selectedSections.includes('monopoly') ? `
       </div>
 
       {/* Preview Summary */}
-      <div className="bg-white rounded-xl border border-slate-200 p-5">
+      <div className="bg-white rounded-xl border border-slate-200 p-4 md:p-5">
         <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Export preview</div>
         <div className="grid grid-cols-3 gap-3 text-center">
           <div className="p-3 bg-slate-50 rounded-lg">

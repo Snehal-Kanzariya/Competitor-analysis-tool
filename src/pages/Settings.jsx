@@ -94,7 +94,7 @@ export default function Settings() {
         <h2 className="font-semibold text-slate-900 mb-1">Data Management</h2>
         <p className="text-xs text-slate-400 mb-4">All data is stored locally in your browser</p>
 
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <button
             onClick={() => {
               if (window.confirm('Reset all data to sample? This cannot be undone.')) {

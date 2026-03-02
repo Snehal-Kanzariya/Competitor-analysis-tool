@@ -37,7 +37,7 @@ export default function Monopoly() {
     <div>
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold tracking-tight text-slate-900">Monopoly Analysis</h1>
+        <h1 className="text-xl md:text-2xl font-bold tracking-tight text-slate-900">Monopoly Analysis</h1>
         <p className="text-sm text-slate-400 mt-1">
           Market concentration & competitive dynamics
           {currentQuery && <span> · Analyzing: <strong className="text-slate-600">{currentQuery}</strong></span>}
@@ -45,26 +45,26 @@ export default function Monopoly() {
       </div>
 
       {/* Market Overview Cards */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 mb-6">
         {[
           { label: 'Market Size', value: marketOverview.totalMarketSize || 'N/A', icon: BarChart3, color: 'text-blue-500', bg: 'bg-blue-50' },
           { label: 'Growth Rate', value: marketOverview.growthRate || 'N/A', icon: TrendingUp, color: 'text-emerald-500', bg: 'bg-emerald-50' },
           { label: 'Market Type', value: marketOverview.marketType || 'N/A', icon: Target, color: 'text-violet-500', bg: 'bg-violet-50' },
           { label: 'Competitors', value: competitors.length, icon: Shield, color: 'text-amber-500', bg: 'bg-amber-50' },
         ].map((stat) => (
-          <div key={stat.label} className="bg-white rounded-xl border border-slate-200 p-5">
+          <div key={stat.label} className="bg-white rounded-xl border border-slate-200 p-4 md:p-5">
             <div className="flex items-start justify-between mb-3">
               <span className="text-xs font-medium text-slate-400">{stat.label}</span>
               <div className={`${stat.bg} ${stat.color} p-1.5 rounded-lg`}>
                 <stat.icon size={15} />
               </div>
             </div>
-            <div className="text-2xl font-bold tracking-tight text-slate-900">{stat.value}</div>
+            <div className="text-xl md:text-2xl font-bold tracking-tight text-slate-900">{stat.value}</div>
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
         {/* HHI Meter */}
         <div className="bg-white rounded-xl border border-slate-200 p-5">
           <h3 className="text-sm font-semibold text-slate-900 mb-1">HHI Score</h3>
@@ -98,7 +98,7 @@ export default function Monopoly() {
         </div>
 
         {/* Market Share Chart */}
-        <div className="col-span-2 bg-white rounded-xl border border-slate-200 p-5">
+        <div className="lg:col-span-2 bg-white rounded-xl border border-slate-200 p-5">
           <h3 className="text-sm font-semibold text-slate-900 mb-1">Market Share Distribution</h3>
           <p className="text-[11px] text-slate-400 mb-4">Estimated market share by competitor</p>
 
@@ -114,7 +114,7 @@ export default function Monopoly() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-xs font-medium text-slate-700 truncate">{comp.name}</span>
-                    <span className="text-xs font-bold text-slate-900 ml-2">{comp.marketShare || '0%'}</span>
+                    <span className="text-xs font-bold text-slate-900 ml-2 shrink-0">{comp.marketShare || '0%'}</span>
                   </div>
                   <div className="h-2.5 rounded-full bg-slate-100">
                     <div
@@ -154,7 +154,7 @@ export default function Monopoly() {
       </div>
 
       {/* Analysis Grid */}
-      <div className="grid grid-cols-2 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
         {/* Barriers to Entry */}
         <div className="bg-white rounded-xl border border-slate-200 p-5">
           <div className="flex items-center gap-2 mb-4">
@@ -205,7 +205,7 @@ export default function Monopoly() {
       </div>
 
       {/* Bottom Row */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Market Trend */}
         <div className="bg-white rounded-xl border border-slate-200 p-5">
           <div className="flex items-center gap-2 mb-3">
@@ -263,7 +263,7 @@ export default function Monopoly() {
       {/* HHI Explanation */}
       <div className="mt-6 bg-slate-50 rounded-xl border border-slate-100 p-4">
         <h4 className="text-xs font-semibold text-slate-500 mb-2">Understanding HHI (Herfindahl-Hirschman Index)</h4>
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
             { range: '0 — 1,500', level: 'Low', desc: 'Competitive market', color: 'text-emerald-500' },
             { range: '1,500 — 2,500', level: 'Moderate', desc: 'Moderately concentrated', color: 'text-amber-500' },

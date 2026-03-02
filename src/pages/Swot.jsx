@@ -102,14 +102,14 @@ export default function Swot() {
   return (
     <div>
       {/* Header */}
-      <div className="flex items-start justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-6">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">SWOT Analysis</h1>
+          <h1 className="text-xl md:text-2xl font-bold tracking-tight text-slate-900">SWOT Analysis</h1>
           <p className="text-sm text-slate-400 mt-1">
             Strengths, Weaknesses, Opportunities & Threats
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           <button
             onClick={() => setView('single')}
             className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
@@ -136,7 +136,7 @@ export default function Swot() {
       </div>
 
       {/* Summary Bar */}
-      <div className="grid grid-cols-4 gap-3 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
         {quadrants.map((q) => (
           <div key={q.key} className="bg-white rounded-xl border border-slate-200 p-4">
             <div className="flex items-center justify-between mb-2">
@@ -145,7 +145,7 @@ export default function Swot() {
                 <q.icon size={13} className={q.text} />
               </div>
             </div>
-            <div className="text-2xl font-bold tracking-tight text-slate-900">{summary[q.key]}</div>
+            <div className="text-xl md:text-2xl font-bold tracking-tight text-slate-900">{summary[q.key]}</div>
             <div className="text-[11px] text-slate-400 mt-0.5">across {competitors.length} competitors</div>
           </div>
         ))}
@@ -167,13 +167,13 @@ export default function Swot() {
                   >
                     {selected.name.charAt(0)}
                   </div>
-                  <div className="text-left flex-1">
-                    <div className="text-sm font-semibold text-slate-900">{selected.name}</div>
+                  <div className="text-left flex-1 min-w-0">
+                    <div className="text-sm font-semibold text-slate-900 truncate">{selected.name}</div>
                     <div className="text-[11px] text-slate-400">{selected.industry} · {selected.status}</div>
                   </div>
                 </>
               )}
-              <ChevronDown size={16} className={`text-slate-400 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+              <ChevronDown size={16} className={`text-slate-400 transition-transform shrink-0 ${dropdownOpen ? 'rotate-180' : ''}`} />
             </button>
 
             {dropdownOpen && (
@@ -189,13 +189,13 @@ export default function Swot() {
                       }`}
                     >
                       <div
-                        className="w-7 h-7 rounded-md flex items-center justify-center text-white text-xs font-bold"
+                        className="w-7 h-7 rounded-md flex items-center justify-center text-white text-xs font-bold shrink-0"
                         style={{ backgroundColor: c.color }}
                       >
                         {c.name.charAt(0)}
                       </div>
-                      <div className="text-left">
-                        <div className="text-sm font-medium text-slate-700">{c.name}</div>
+                      <div className="text-left min-w-0">
+                        <div className="text-sm font-medium text-slate-700 truncate">{c.name}</div>
                         <div className="text-[10px] text-slate-400">
                           S:{(c.strengths||[]).length} · W:{(c.weaknesses||[]).length} · O:{(c.opportunities||[]).length} · T:{(c.threats||[]).length}
                         </div>
@@ -209,7 +209,7 @@ export default function Swot() {
 
           {/* SWOT Grid - Single Competitor */}
           {selected && (
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {quadrants.map((q) => (
                 <SwotQuadrant
                   key={q.key}
@@ -382,20 +382,20 @@ function CompareView({ competitors }) {
             <span className="text-[11px] text-slate-400">— {q.subtitle}</span>
           </div>
 
-          <div className="grid gap-3" style={{ gridTemplateColumns: `repeat(${Math.min(competitors.length, 4)}, 1fr)` }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {competitors.map((comp) => {
               const items = comp[q.key] || [];
               return (
                 <div key={comp.id} className={`rounded-lg border ${q.border} ${q.bg} p-3`}>
                   <div className="flex items-center gap-2 mb-2.5 pb-2 border-b" style={{ borderColor: `${q.color}22` }}>
                     <div
-                      className="w-5 h-5 rounded-md flex items-center justify-center text-white text-[9px] font-bold"
+                      className="w-5 h-5 rounded-md flex items-center justify-center text-white text-[9px] font-bold shrink-0"
                       style={{ backgroundColor: comp.color }}
                     >
                       {comp.name.charAt(0)}
                     </div>
                     <span className="text-xs font-semibold text-slate-700 truncate">{comp.name}</span>
-                    <span className={`text-[10px] font-bold ml-auto ${q.text}`}>{items.length}</span>
+                    <span className={`text-[10px] font-bold ml-auto shrink-0 ${q.text}`}>{items.length}</span>
                   </div>
 
                   {items.length === 0 ? (
