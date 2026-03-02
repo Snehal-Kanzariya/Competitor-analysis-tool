@@ -1,5 +1,3 @@
-Update README.md with this professional content:
-
 # CompetitorIQ 🔍
 
 AI-powered competitor analysis platform that lets you research any company and get a complete competitive landscape — for free.
