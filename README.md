@@ -1,27 +1,56 @@
-https://competitor-analysis-tool-roan.vercel.app - deployed version
+Update README.md with this professional content:
 
+# CompetitorIQ 🔍
 
+AI-powered competitor analysis platform that lets you research any company and get a complete competitive landscape — for free.
 
-# React + Vite
+**🌐 Live Demo:** https://competitor-analysis-tool-roan.vercel.app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
 
-Currently, two official plugins are available:
+- **AI Research Engine** — Enter any company name, get instant competitor data using Wikipedia API + curated industry database (50+ industries)
+- **Dashboard** — Overview of all competitors with scores, trends, and market stats
+- **Feature Comparison Matrix** — Side-by-side feature comparison with Yes/Partial/No scoring
+- **SWOT Analysis** — Auto-generated strengths, weaknesses, opportunities & threats for each competitor
+- **Monopoly Analysis** — HHI index, market concentration, barriers to entry, disruption opportunities
+- **Market Positioning Map** — Interactive scatter plot showing competitors by price vs quality
+- **Weighted Scoring Engine** — Customizable criteria with drag-to-reorder and weighted rankings
+- **Export & Reports** — Download analysis as PDF, HTML, CSV, or JSON
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
 
-## React Compiler
+- **Frontend:** React 18 + Vite
+- **Styling:** Tailwind CSS
+- **State:** Zustand with localStorage persistence
+- **Icons:** Lucide React
+- **Routing:** React Router v6
+- **Data:** Wikipedia API + Built-in industry database
+- **Deploy:** Vercel
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Getting Started
+```bash
+git clone https://github.com/Snehal-Kanzariya/Competitor-analysis-tool.git
+cd Competitor-analysis-tool
+npm install
+npm run dev
+```
 
-## Expanding the ESLint configuration
+Open http://localhost:5173
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## How It Works
 
-Design System & Wireframes  
-https://claude.ai/public/artifacts/36e7a1d2-e321-4d62-86a2-ba9babacde20
+1. Enter a company name in AI Research
+2. System checks the built-in database (50+ industries) and fetches Wikipedia data
+3. Automatically generates competitor profiles, SWOT, features, market data
+4. All 7 analysis modules populate instantly
+5. Export your analysis in PDF, HTML, CSV, or JSON
 
-Google API Key - AIzaSyADtXqUqRMd-9gqcpevxFBh-eQj4Vn6oTU
+## Supported Industries
 
-Search engine ID - 00b6982b9b0b24b35
+Fast Food, SaaS, E-commerce, Streaming, Automotive, Sportswear, Social Media, AI/ML, Cloud Computing, Fintech, Food Delivery, Ride-Hailing, Design Tools, Airlines, Gaming, Pharma, IT Services, Consulting, Retail, and more.
+
+## License
+
+MIT
+
+Then commit and push: git add -A && git commit -m "Update README with full project documentation" && git push origin main
