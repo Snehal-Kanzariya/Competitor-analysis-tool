@@ -1,4 +1,7 @@
 import { create } from 'zustand';
+import { createCompanySlice } from './slices/companySlice';
+import { createIdeaSlice } from './slices/ideaSlice';
+import { createFiltersSlice } from './slices/filtersSlice';
 
 const sampleCompetitors = [
   {
@@ -259,6 +262,18 @@ const useStore = create((set, get) => {
         return updated;
       });
     },
+
+    // === API KEY ===
+    apiKey: localStorage.getItem('competitoriq-apikey') || '',
+    setApiKey: (key) => {
+      localStorage.setItem('competitoriq-apikey', key);
+      set({ apiKey: key });
+    },
+
+    // === SLICES ===
+    ...createCompanySlice(set, get),
+    ...createIdeaSlice(set, get),
+    ...createFiltersSlice(set, get),
 
     // === RESET ===
     resetToSample: () => {

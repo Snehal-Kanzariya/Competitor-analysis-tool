@@ -4,9 +4,11 @@ import useStore from '../store/useStore';
 import StatsBar from '../components/Dashboard/StatsBar';
 import CompetitorCard from '../components/Dashboard/CompetitorCard';
 import AddCompetitorModal from '../components/Dashboard/AddCompetitorModal';
+import ScopeFilter from '../components/ScopeFilter';
 
 export default function Dashboard() {
   const competitors = useStore((s) => s.competitors);
+  const scope = useStore((s) => s.scope);
   const [showModal, setShowModal] = useState(false);
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState('score'); // score, name, trend
@@ -19,6 +21,14 @@ export default function Dashboard() {
 
   if (filterStatus !== 'all') {
     filtered = filtered.filter((c) => c.status === filterStatus);
+  }
+
+  // Geographic scope filter — only applies when a competitor has geographic_scope set
+  if (scope !== 'all') {
+    filtered = filtered.filter((c) => {
+      if (!c.geographic_scope) return true; // keep legacy entries without scope
+      return c.geographic_scope.toLowerCase() === scope;
+    });
   }
 
   // Sort
@@ -52,6 +62,11 @@ export default function Dashboard() {
 
       {/* Stats */}
       <StatsBar />
+
+      {/* Scope Filter */}
+      <div className="mb-4">
+        <ScopeFilter />
+      </div>
 
       {/* Toolbar */}
       <div className="flex flex-wrap items-center gap-2 mb-5">

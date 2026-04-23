@@ -14,6 +14,11 @@ export default defineConfig({
           "anthropic-dangerous-direct-browser-access": "true",
         },
       },
+      "/api/ddg": {
+        target: "https://api.duckduckgo.com",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/ddg/, "/"),
+      },
     },
   },
 });
